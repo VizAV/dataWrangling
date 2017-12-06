@@ -1,5 +1,5 @@
 from readwrite import read,write
-
+import sys
 
 
 def greaterThan(inpFile,filterCol, filterValue):
@@ -25,8 +25,22 @@ def exists(inpFile,filterCol):
 
 
 def main():
+
+    dictColType = {}
+
     # Get the file and the variables that needs filetering
-    inpFile = read()
+    if sys.argv[1] is None:
+
+        print('Enter the name of the file and make sure it is present in data folder..')
+        filename = input()
+    else:
+        filename = sys.argv[1]
+
+
+    inpFile = read(filename)
+
+    for cols in inpFile.columns:
+        dictColType[cols]=type(inpFile.loc[0,cols])
 
     print("select the column by which you want to filter")
     cols = inpFile.columns
@@ -37,8 +51,10 @@ def main():
 
 
     print ("Enter the value for filtering")
-    filterValue = int(input())
+    filterValue = input()
 
+    # Getting it in the right datatype
+    filterValue = dictColType[filterCol](filterValue)
 
     print("select the option which you want to select")
     Options = ['> (greater than)', '< (lesser than)', '= (equal to )','!= (not equal to )','exists']

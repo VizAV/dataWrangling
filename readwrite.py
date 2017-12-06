@@ -1,8 +1,8 @@
 import pandas as pd
-def read():
+
+def read(filename):
     # Get the filename
-    print('Enter the name of the file and make sure it is present in data folder..')
-    filename = input()
+
 
     # Check to catch exception if file is not present
 
@@ -11,15 +11,14 @@ def read():
 
     return inpFile
 
-def write(filteredFile):
-    filteredFile.to_csv('./data/'+'filteredData'+'.csv')
+def write(outputFile):
+    print("Writing the file as treatedData.csv")
+    outputFile.to_csv('./data/'+'treatedData'+'.csv')
 
 def main():
 
     inpFile = read()
     write(inpFile)
-
-
 
 if __name__=='__main__':
     main()
